@@ -3,13 +3,9 @@
 navbar:
   structure:
     left:
-    - home
     - articles
     right: github
   components:
-    home:
-      icon: fa-home fa-lg
-      href: index.html
     articles:
       text: Supplementary
       menu:
