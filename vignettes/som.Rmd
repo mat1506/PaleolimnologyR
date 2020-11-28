@@ -1,14 +1,67 @@
 ---
-title: "Supplementary analyses"
+title: "Creating Stratigraphic Diagrams"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Creating Stratigraphic Diagrams}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
+library(httr)
+knitr::opts_chunk$set(comment = "#>", collapse = TRUE)
+
 ```
 
-```{r setup}
-library(PaleolimnologyR)
+
+# Prerequisitos
+
+En este mini tutorial trabajaremos con los packages ggplot y tidypaleo "[tutorial de Dewey Dunnington, 2018 para más información](https://fishandwhistle.net/post/2018/stratigraphic-diagrams-with-tidypaleo-ggplot2/)".
+
+# Installation 
+
+active o desactive # para instalar algun package
+
+```{r}
+# Desde CRAN
+# install.packages("ggplot2")
+# install.packages("tidyverse")
+# Desde Github
+#devtools::install_github("thomasp85/patchwork")
+#devtools::install_github("paleolimbot/tidypaleo")
+
 ```
+
+
+
+```{r}
+library(ggplot2)
+library(patchwork)
+library(tidyverse)
+library(tidypaleo)
+theme_set(theme_bw(8))
+```
+
+
+Primero cargamos los datos desde nuestra carpeta (recomiendo usar el package here para que se pueda reproducir desde cualquier maquina)
+
+```{r setup}
+#library(PaleolimnologyR)
+library(here)
+library(here)
+```
+
+# Analizando datos estratigraficos
+
+Primero cargamos los datos desde nuestra carpeta (recomiendo usar el package here para que se pueda reproducir desde cualquier maquina)
+
+```{r}
+
+```
+
+
+
+
+
+
+
