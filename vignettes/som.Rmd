@@ -61,7 +61,7 @@ mnidata <- read_csv(here::here("data-raw/MNI.csv"))
 Primero debemos ordenar los datos para que puean ser leido por ggplot, para esto usamos las herraminetas disponibles en el `tidyverse package` con la función `gather()`, la idea es dejar todos los valores en una sola variable que se conoce como `tabla larga`.
 
 
-```{r plot1}
+```{r fig1}
 ## reordenamos los datos en un formato de tabla larga
 mnidata<- gather(mnidata, key = species, value = mni, 4:17)
 
@@ -70,19 +70,13 @@ geom_lineh() +
 geom_point() +
 scale_y_reverse() +
 facet_geochem_gridh(vars(species)) +
-labs(x = NULL, y = "Depth (cm)")
+labs(x = "MNI", y = "Depth (cm)")
+
 
 ##  Una forma de resaltar un rango de profundidades
 
-zone_data <- tibble(ymin = 10, ymax = 50, xmin = -Inf, xmax = Inf)
-mni_plot +
-  geom_rect(
-    mapping = aes(ymin = ymin, ymax = ymax, xmin = xmin, xmax = xmax), 
-    data = zone_data, 
-    alpha = 0.2,
-    fill = "blue",
-    inherit.aes = FALSE
-  )
+mni_plot 
+
 
 ##  O simplemente graficamos con lineas y puntos
 
@@ -91,9 +85,11 @@ mni_ggplot <- ggplot(mnidata, aes(x = mni, y = depth)) +
   geom_lineh() +
   scale_y_reverse() +
   facet_abundanceh(vars(species)) +
-  labs(x = "Abundance (numero de individuos)", y = "Depth (cm)")
+  labs(x = "MNI", y = "Depth (cm)")
 
 mni_ggplot
+
+
 ```
 
 
@@ -110,7 +106,7 @@ nispdata <- read_csv(here::here("data-raw/NISP.csv"))
 Ordenamos los datos en un formato de tabla larga 
 
 
-```{r plot2}
+```{r fig2}
 ## reordenamos los datos en un formato de tabla larga
 
 nispdata<- gather(nispdata, key = species, value = nisp, 4:17)
@@ -122,19 +118,12 @@ geom_lineh() +
 geom_point() +
 scale_y_reverse() +
 facet_geochem_gridh(vars(species)) +
-labs(x = NULL, y = "Depth (cm)")
+labs(x = "NISP", y = "Depth (cm)")
 
 ##  Una forma de resaltar un rango de profundidades
 
-zone_data <- tibble(ymin = 10, ymax = 50, xmin = -Inf, xmax = Inf)
-mni_plot +
-  geom_rect(
-    mapping = aes(ymin = ymin, ymax = ymax, xmin = xmin, xmax = xmax), 
-    data = zone_data, 
-    alpha = 0.2,
-    fill = "blue",
-    inherit.aes = FALSE
-  )
+nisp_plot
+
 
 ##  O simplemente graficamos con lineas y puntos
 nisp_ggplot <- ggplot(nispdata, aes(x = nisp, y = depth)) +
@@ -142,8 +131,10 @@ nisp_ggplot <- ggplot(nispdata, aes(x = nisp, y = depth)) +
   geom_lineh() +
   scale_y_reverse() +
   facet_abundanceh(vars(species)) +
-  labs(x = "Abundance (numero de individuos)", y = "Depth (cm)")
+labs(x = "NISP", y = "Depth (cm)")
 
 nisp_ggplot
+
+
 
 ```

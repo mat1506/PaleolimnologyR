@@ -37,12 +37,6 @@
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Supplementary
@@ -55,43 +49,17 @@
     </li>
   </ul>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Slides
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../slides/slides.html">R Markdown slides</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Posters
+  <a href="../index.html">
+    <span class="fas fa fas fa-home fa-lg"></span>
      
-    <span class="caret"></span>
   </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="../posters/poster.html">Conference 2019</a>
-    </li>
-  </ul>
 </li>
 <li>
-  <a href="../reference/index.html">Functions</a>
+  <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="https://github.com/user/repo">
-    <span class="fa fa-lg fa-github"></span>
-     
-    source code
-  </a>
-</li>
-      </ul>
+<ul class="nav navbar-nav navbar-right"></ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -155,38 +123,32 @@
 <code class="sourceCode R"><span class="co">## reordenamos los datos en un formato de tabla larga</span>
 <span class="va">mnidata</span><span class="op">&lt;-</span> <span class="fu">gather</span><span class="op">(</span><span class="va">mnidata</span>, key <span class="op">=</span> <span class="va">species</span>, value <span class="op">=</span> <span class="va">mni</span>, <span class="fl">4</span><span class="op">:</span><span class="fl">17</span><span class="op">)</span>
 
-<span class="va">mni_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mnidata</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mni</span>, y <span class="op">=</span> <span class="va">depth</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-<span class="fu"><a href="https://paleolimbot.github.io/tidypaleo/reference/geom_lineh.html">geom_lineh</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_reverse</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-<span class="fu"><a href="https://paleolimbot.github.io/tidypaleo/reference/facet_abundanceh.html">facet_geochem_gridh</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html">vars</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="cn">NULL</span>, y <span class="op">=</span> <span class="st">"Depth (cm)"</span><span class="op">)</span>
+<span class="va">mni_plot</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">mnidata</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">mni</span>, y <span class="op">=</span> <span class="va">depth</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+<span class="fu">geom_lineh</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+<span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+<span class="fu">scale_y_reverse</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+<span class="fu">facet_geochem_gridh</span><span class="op">(</span><span class="fu">vars</span><span class="op">(</span><span class="va">species</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+<span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"MNI"</span>, y <span class="op">=</span> <span class="st">"Depth (cm)"</span><span class="op">)</span>
+
 
 <span class="co">##  Una forma de resaltar un rango de profundidades</span>
 
-<span class="va">zone_data</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>ymin <span class="op">=</span> <span class="fl">10</span>, ymax <span class="op">=</span> <span class="fl">50</span>, xmin <span class="op">=</span> <span class="op">-</span><span class="cn">Inf</span>, xmax <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span>
-<span class="va">mni_plot</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html">geom_rect</a></span><span class="op">(</span>
-    mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">ymin</span>, ymax <span class="op">=</span> <span class="va">ymax</span>, xmin <span class="op">=</span> <span class="va">xmin</span>, xmax <span class="op">=</span> <span class="va">xmax</span><span class="op">)</span>, 
-    data <span class="op">=</span> <span class="va">zone_data</span>, 
-    alpha <span class="op">=</span> <span class="fl">0.2</span>,
-    fill <span class="op">=</span> <span class="st">"blue"</span>,
-    inherit.aes <span class="op">=</span> <span class="cn">FALSE</span>
-  <span class="op">)</span></code></pre></div>
-<p><img src="som_files/figure-html/plot1-1.png" width="700"></p>
+<span class="va">mni_plot</span> </code></pre></div>
+<p><img src="som_files/figure-html/fig1-1.png" width="700"></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
+
 <span class="co">##  O simplemente graficamos con lineas y puntos</span>
 
-<span class="va">mni_ggplot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mnidata</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mni</span>, y <span class="op">=</span> <span class="va">depth</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://paleolimbot.github.io/tidypaleo/reference/geom_col_segsh.html">geom_col_segsh</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://paleolimbot.github.io/tidypaleo/reference/geom_lineh.html">geom_lineh</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_reverse</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://paleolimbot.github.io/tidypaleo/reference/facet_abundanceh.html">facet_abundanceh</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html">vars</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Abundance (numero de individuos)"</span>, y <span class="op">=</span> <span class="st">"Depth (cm)"</span><span class="op">)</span>
+<span class="va">mni_ggplot</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">mnidata</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">mni</span>, y <span class="op">=</span> <span class="va">depth</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_col_segsh</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_lineh</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">scale_y_reverse</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">facet_abundanceh</span><span class="op">(</span><span class="fu">vars</span><span class="op">(</span><span class="va">species</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"MNI"</span>, y <span class="op">=</span> <span class="st">"Depth (cm)"</span><span class="op">)</span>
 
 <span class="va">mni_ggplot</span></code></pre></div>
-<p><img src="som_files/figure-html/plot1-2.png" width="700"></p>
+<p><img src="som_files/figure-html/fig1-2.png" width="700"></p>
 </div>
 <div id="datos-nisp" class="section level2">
 <h2 class="hasAnchor">
@@ -202,37 +164,30 @@
 
 <span class="co">## Y graficamos con ggplot</span>
 
-<span class="va">nisp_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">nispdata</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">nisp</span>, y <span class="op">=</span> <span class="va">depth</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-<span class="fu"><a href="https://paleolimbot.github.io/tidypaleo/reference/geom_lineh.html">geom_lineh</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_reverse</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-<span class="fu"><a href="https://paleolimbot.github.io/tidypaleo/reference/facet_abundanceh.html">facet_geochem_gridh</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html">vars</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="cn">NULL</span>, y <span class="op">=</span> <span class="st">"Depth (cm)"</span><span class="op">)</span>
+<span class="va">nisp_plot</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">nispdata</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">nisp</span>, y <span class="op">=</span> <span class="va">depth</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+<span class="fu">geom_lineh</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+<span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+<span class="fu">scale_y_reverse</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+<span class="fu">facet_geochem_gridh</span><span class="op">(</span><span class="fu">vars</span><span class="op">(</span><span class="va">species</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+<span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"NISP"</span>, y <span class="op">=</span> <span class="st">"Depth (cm)"</span><span class="op">)</span>
 
 <span class="co">##  Una forma de resaltar un rango de profundidades</span>
 
-<span class="va">zone_data</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>ymin <span class="op">=</span> <span class="fl">10</span>, ymax <span class="op">=</span> <span class="fl">50</span>, xmin <span class="op">=</span> <span class="op">-</span><span class="cn">Inf</span>, xmax <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span>
-<span class="va">mni_plot</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html">geom_rect</a></span><span class="op">(</span>
-    mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">ymin</span>, ymax <span class="op">=</span> <span class="va">ymax</span>, xmin <span class="op">=</span> <span class="va">xmin</span>, xmax <span class="op">=</span> <span class="va">xmax</span><span class="op">)</span>, 
-    data <span class="op">=</span> <span class="va">zone_data</span>, 
-    alpha <span class="op">=</span> <span class="fl">0.2</span>,
-    fill <span class="op">=</span> <span class="st">"blue"</span>,
-    inherit.aes <span class="op">=</span> <span class="cn">FALSE</span>
-  <span class="op">)</span></code></pre></div>
-<p><img src="som_files/figure-html/plot2-1.png" width="700"></p>
+<span class="va">nisp_plot</span></code></pre></div>
+<p><img src="som_files/figure-html/fig2-1.png" width="700"></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
+
 <span class="co">##  O simplemente graficamos con lineas y puntos</span>
-<span class="va">nisp_ggplot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">nispdata</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">nisp</span>, y <span class="op">=</span> <span class="va">depth</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://paleolimbot.github.io/tidypaleo/reference/geom_col_segsh.html">geom_col_segsh</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://paleolimbot.github.io/tidypaleo/reference/geom_lineh.html">geom_lineh</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_reverse</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://paleolimbot.github.io/tidypaleo/reference/facet_abundanceh.html">facet_abundanceh</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html">vars</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Abundance (numero de individuos)"</span>, y <span class="op">=</span> <span class="st">"Depth (cm)"</span><span class="op">)</span>
+<span class="va">nisp_ggplot</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">nispdata</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">nisp</span>, y <span class="op">=</span> <span class="va">depth</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_col_segsh</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_lineh</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">scale_y_reverse</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">facet_abundanceh</span><span class="op">(</span><span class="fu">vars</span><span class="op">(</span><span class="va">species</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+<span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"NISP"</span>, y <span class="op">=</span> <span class="st">"Depth (cm)"</span><span class="op">)</span>
 
 <span class="va">nisp_ggplot</span></code></pre></div>
-<p><img src="som_files/figure-html/plot2-2.png" width="700"></p>
+<p><img src="som_files/figure-html/fig2-2.png" width="700"></p>
 </div>
 </div>
   </div>
