@@ -1,8 +1,8 @@
 ---
-title: "Creating Stratigraphic Diagrams"
+title: "Creando diagramas Estratigraficos"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Creating Stratigraphic Diagrams}
+  %\VignetteIndexEntry{Creando diagramas Estratigraficos}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -16,52 +16,134 @@ knitr::opts_chunk$set(comment = "#>", collapse = TRUE)
 
 # Prerequisitos
 
-En este mini tutorial trabajaremos con los packages ggplot y tidypaleo "[tutorial de Dewey Dunnington, 2018 para más información](https://fishandwhistle.net/post/2018/stratigraphic-diagrams-with-tidypaleo-ggplot2/)".
+En este mini tutorial trabajaremos con los packages ggplot y tidypaleo "[modificado del tutorial de Dewey Dunnington (2018)](https://fishandwhistle.net/post/2018/stratigraphic-diagrams-with-tidypaleo-ggplot2/)" para hacer una figura en profundidad de datos obtenidos por Romina en conchales.
 
-# Installation 
+# Instalación
 
-active o desactive # para instalar algun package
+Active o desactive # para instalar algún package que necesitemos
 
-```{r}
+```{r, include = TRUE}
 # Desde CRAN
 # install.packages("ggplot2")
 # install.packages("tidyverse")
+# install.packages("here")
 # Desde Github
 #devtools::install_github("thomasp85/patchwork")
 #devtools::install_github("paleolimbot/tidypaleo")
 
 ```
 
+## Cargando los paquetes que necesitaremos
 
 
-```{r}
+```{r , include = FALSE}
 library(ggplot2)
 library(patchwork)
 library(tidyverse)
 library(tidypaleo)
+library(here)
 theme_set(theme_bw(8))
 ```
 
 
-Primero cargamos los datos desde nuestra carpeta (recomiendo usar el package here para que se pueda reproducir desde cualquier maquina)
+## Cargando los datos que necesitaremos
 
-```{r setup}
-#library(PaleolimnologyR)
-library(here)
-library(here)
+Primero cargamos los datos desde nuestra carpeta (recomiendo usar el `package here` para que podamos reproducir las figuras desde cualquier maquina sin cambiar el directorio)
+
+```{r setup, include = TRUE, echo=TRUE, results=TRUE, message=FALSE}
+mnidata <- read_csv(here::here("data-raw/MNI.csv"))
 ```
 
-# Analizando datos estratigraficos
+# Analizando los datos NMI y NISP. 
 
-Primero cargamos los datos desde nuestra carpeta (recomiendo usar el package here para que se pueda reproducir desde cualquier maquina)
+## Datos NMI
 
-```{r}
+Primero debemos ordenar los datos para que puean ser leido por ggplot, para esto usamos las herraminetas disponibles en el `tidyverse package` con la función `gather()`, la idea es dejar todos los valores en una sola variable que se conoce como `tabla larga`.
 
+
+```{r plot1}
+## reordenamos los datos en un formato de tabla larga
+mnidata<- gather(mnidata, key = species, value = mni, 4:17)
+
+mni_plot <- ggplot(mnidata, aes(x = mni, y = depth)) +
+geom_lineh() +
+geom_point() +
+scale_y_reverse() +
+facet_geochem_gridh(vars(species)) +
+labs(x = NULL, y = "Depth (cm)")
+
+##  Una forma de resaltar un rango de profundidades
+
+zone_data <- tibble(ymin = 10, ymax = 50, xmin = -Inf, xmax = Inf)
+mni_plot +
+  geom_rect(
+    mapping = aes(ymin = ymin, ymax = ymax, xmin = xmin, xmax = xmax), 
+    data = zone_data, 
+    alpha = 0.2,
+    fill = "blue",
+    inherit.aes = FALSE
+  )
+
+##  O simplemente graficamos con lineas y puntos
+
+mni_ggplot <- ggplot(mnidata, aes(x = mni, y = depth)) +
+  geom_col_segsh() +
+  geom_lineh() +
+  scale_y_reverse() +
+  facet_abundanceh(vars(species)) +
+  labs(x = "Abundance (numero de individuos)", y = "Depth (cm)")
+
+mni_ggplot
 ```
 
 
+## Datos NISP
+
+Ahora cargamos los datos de NMI y repetimos las lineas de arriba, cambiando el nombre del archivo por
 
 
+```{r nispdata, include = TRUE, echo=TRUE, results=TRUE, message=FALSE}
+nispdata <- read_csv(here::here("data-raw/NISP.csv"))
+```
 
 
+Ordenamos los datos en un formato de tabla larga 
 
+
+```{r plot2}
+## reordenamos los datos en un formato de tabla larga
+
+nispdata<- gather(nispdata, key = species, value = nisp, 4:17)
+
+## Y graficamos con ggplot
+
+nisp_plot <- ggplot(nispdata, aes(x = nisp, y = depth)) +
+geom_lineh() +
+geom_point() +
+scale_y_reverse() +
+facet_geochem_gridh(vars(species)) +
+labs(x = NULL, y = "Depth (cm)")
+
+##  Una forma de resaltar un rango de profundidades
+
+zone_data <- tibble(ymin = 10, ymax = 50, xmin = -Inf, xmax = Inf)
+mni_plot +
+  geom_rect(
+    mapping = aes(ymin = ymin, ymax = ymax, xmin = xmin, xmax = xmax), 
+    data = zone_data, 
+    alpha = 0.2,
+    fill = "blue",
+    inherit.aes = FALSE
+  )
+
+##  O simplemente graficamos con lineas y puntos
+nisp_ggplot <- ggplot(nispdata, aes(x = nisp, y = depth)) +
+  geom_col_segsh() +
+  geom_lineh() +
+  scale_y_reverse() +
+  facet_abundanceh(vars(species)) +
+  labs(x = "Abundance (numero de individuos)", y = "Depth (cm)")
+
+nisp_ggplot
+
+```
